@@ -1,0 +1,25 @@
+# Code Owners for Mini Games Online
+
+# Global owners (will be requested for all PRs)
+* @tristannavez
+
+# Core game logic
+/scripts/ @tristannavez
+/minigames/ @tristannavez
+
+# Network and multiplayer
+/scripts/NetworkManager.gd @tristannavez
+/server/ @tristannavez
+
+# Build and deployment
+/tools/ @tristannavez
+/.github/ @tristannavez
+
+# Documentation
+/docs/ @tristannavez
+README.md @tristannavez
+CONTRIBUTING.md @tristannavez
+
+# Project configuration
+project.godot @tristannavez
+export_presets.cfg @tristannavez
