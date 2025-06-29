@@ -1,0 +1,39 @@
+title: Mini Games Online Documentation
+description: Official documentation for Mini Games Online - A cross-platform multiplayer mini-games collection
+show_downloads: true
+google_analytics: 
+theme: jekyll-theme-cayman
+
+# Site settings
+url: "https://tristannavez.github.io"
+baseurl: "/mini-games-online"
+
+# GitHub metadata
+github:
+  repository_url: https://github.com/tristannavez/mini-games-online
+  repository_name: mini-games-online
+  owner_name: tristannavez
+  
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Server Setup
+    url: /SERVER_SETUP_GUIDE
+  - title: Testing Guide
+    url: /TESTING_GUIDE
+  - title: GitHub Repository
+    url: https://github.com/tristannavez/mini-games-online
+
+# Plugins
+plugins:
+  - jekyll-github-metadata
+  - jekyll-sitemap
+
+# Markdown processor
+markdown: kramdown
+highlighter: rouge
+
+# Exclude files
+exclude:
+  - README.md
