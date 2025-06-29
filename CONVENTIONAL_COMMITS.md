@@ -20,6 +20,8 @@
 - **perf**: A code change that improves performance
 - **test**: Adding missing tests or correcting existing tests
 - **chore**: Changes to the build process or auxiliary tools
+- **ci**: Changes to CI configuration files and scripts
+- **build**: Changes that affect the build system or external dependencies
 
 ## Scopes
 
@@ -41,4 +43,9 @@ fix(network): resolve connection timeout issue
 docs(readme): update installation instructions
 refactor(lobby): simplify player list management
 chore(build): update Godot export presets
+ci(github): add automated testing workflow
+build(tools): update build scripts for cross-platform
+perf(ui): optimize button rendering performance
+test(network): add multiplayer connection tests
+style(lobby): fix indentation in player list code
 ```
