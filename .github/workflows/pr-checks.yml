@@ -1,0 +1,84 @@
+name: 🔍 PR Status Checks
+
+on:
+  pull_request:
+    branches: [ main, master ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  # 📊 PR Information
+  pr-info:
+    name: 📊 PR Information
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📊 PR Statistics
+        run: |
+          echo "📊 Pull Request Information"
+          echo "Branch: ${{ github.head_ref }}"
+          echo "Target: ${{ github.base_ref }}"
+          echo "Author: ${{ github.actor }}"
+          
+          # Safely count commits with error handling
+          if git rev-list --count ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} 2>/dev/null; then
+            commit_count=$(git rev-list --count ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+            echo "Commits: $commit_count"
+          else
+            echo "Commits: Unable to calculate (new branch or force push)"
+          fi
+          
+          # Check if this is a conventional commit PR
+          if [[ "${{ github.head_ref }}" =~ ^(feat|fix|docs|style|refactor|perf|test|chore|ci)/ ]]; then
+            echo "✅ Branch follows conventional naming"
+          else
+            echo "⚠️ Branch doesn't follow conventional naming (feat/, fix/, docs/, etc.)"
+          fi
+
+  # 🎮 Game-specific checks
+  game-checks:
+    name: 🎮 Game Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🎯 Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.4.1
+          use-dotnet: false
+
+      - name: 🎮 Validate game project
+        run: |
+          echo "🎮 Checking game project structure..."
+          
+          # Check we have a reasonable number of game files
+          scene_count=$(find . -name "*.tscn" | wc -l)
+          script_count=$(find . -name "*.gd" | wc -l)
+          
+          echo "Found $scene_count scenes and $script_count scripts"
+          
+          if [ "$scene_count" -ge 3 ] && [ "$script_count" -ge 4 ]; then
+            echo "✅ Project has sufficient game files"
+          else
+            echo "⚠️ Project seems small, but that's okay"
+          fi
+
+      - name: 🔧 Check project configuration
+        run: |
+          echo "🔧 Validating project.godot..."
+          if grep -q "config_version=5" project.godot; then
+            echo "✅ Godot 4.x project configuration"
+          else
+            echo "❌ Invalid project configuration"
+            exit 1
+          fi
+          
+          # Check for autoloads (useful for this project)
+          if grep -E "^\[autoload\]" project.godot; then
+            echo "✅ Autoloads configured"
+          else
+            echo "ℹ️ No autoloads found"
+          fi
