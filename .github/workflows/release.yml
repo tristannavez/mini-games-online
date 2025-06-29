@@ -5,17 +5,31 @@ on:
     tags:
       - 'v*.*.*'
 
+permissions:
+  contents: write
+
 env:
   GODOT_VERSION: 4.4.1
   EXPORT_NAME: MiniGamesOnline
 
 jobs:
-  create-release:
-    name: 🎯 Create Release
-    runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-      version: ${{ steps.get_version.outputs.version }}
+  release:
+    name: 🎯 Create Release and Build
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - platform: "Windows Desktop"
+            template: windows
+            extension: .exe
+            asset_name: MiniGamesOnline_Windows.exe
+            runner: windows-latest
+          - platform: "Linux/X11"
+            template: linux
+            extension: .x86_64
+            asset_name: MiniGamesOnline_Linux.x86_64
+            runner: ubuntu-latest
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -23,9 +37,78 @@ jobs:
       - name: 🏷️ Get version from tag
         id: get_version
         run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        shell: bash
 
-      - name: 📝 Generate release notes
-        id: release_notes
+      - name: 🎯 Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: false
+          include-templates: true
+
+      - name: 🚀 Create minimal export presets
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: export_presets.cfg
+          contents: |
+            [preset.0]
+            name="Windows Desktop"
+            platform="Windows Desktop"
+            runnable=true
+            dedicated_server=false
+            custom_features=""
+            export_filter="all_resources"
+            include_filter=""
+            exclude_filter=""
+            export_path=""
+            
+            [preset.0.options]
+            binary_format/embed_pck=false
+            texture_format/bptc=true
+            texture_format/s3tc=true
+            texture_format/etc=false
+            texture_format/etc2=false
+            binary_format/architecture="x86_64"
+            
+            [preset.1]
+            name="Linux/X11"
+            platform="Linux/X11"
+            runnable=true
+            dedicated_server=false
+            custom_features=""
+            export_filter="all_resources"
+            include_filter=""
+            exclude_filter=""
+            export_path=""
+            
+            [preset.1.options]
+            binary_format/embed_pck=false
+            texture_format/bptc=true
+            texture_format/s3tc=true
+            texture_format/etc=false
+            texture_format/etc2=false
+            binary_format/architecture="x86_64"
+          write-mode: overwrite
+
+      - name: 🚀 Import project
+        run: |
+          echo "Importing project (timeout 30s)..."
+          timeout 30s godot --headless --import --quit-after 5 || echo "Import completed"
+        shell: bash
+
+      - name: 📁 Create build directory
+        run: mkdir -p builds/${{ matrix.template }}
+        shell: bash
+
+      - name: 🏗️ Build ${{ matrix.platform }}
+        run: |
+          echo "🏗️ Building for ${{ matrix.platform }}..."
+          godot --headless --export-release "${{ matrix.platform }}" builds/${{ matrix.template }}/${{ env.EXPORT_NAME }}${{ matrix.extension }}
+          mv builds/${{ matrix.template }}/${{ env.EXPORT_NAME }}${{ matrix.extension }} ${{ matrix.asset_name }}
+        shell: bash
+
+      - name: 📝 Generate release notes (Windows only)
+        if: matrix.platform == 'Windows Desktop'
         run: |
           cat > release_notes.md << 'EOF'
           ## 🎮 Mini Games Online ${{ steps.get_version.outputs.version }}
@@ -55,70 +138,15 @@ jobs:
           - Real-time networking
           - Multi-language support (English/French)
           EOF
+        shell: bash
 
-      - name: 🚀 Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: � Create release with assets
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.get_version.outputs.version }}
-          release_name: 🎮 Mini Games Online ${{ steps.get_version.outputs.version }}
+          name: 🎮 Mini Games Online ${{ steps.get_version.outputs.version }}
           body_path: release_notes.md
+          files: ${{ matrix.asset_name }}
           draft: false
           prerelease: false
-
-  build-and-upload:
-    name: 🏗️ Build & Upload
-    needs: create-release
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      matrix:
-        include:
-          - platform: Windows
-            runner: windows-latest
-            template: windows
-            extension: .exe
-            asset_name: MiniGamesOnline_Windows.exe
-          - platform: Linux
-            runner: ubuntu-latest  
-            template: linux
-            extension: .x86_64
-            asset_name: MiniGamesOnline_Linux.x86_64
-
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🎯 Setup Godot
-        uses: chickensoft-games/setup-godot@v1
-        with:
-          version: ${{ env.GODOT_VERSION }}
-          use-dotnet: false
-
-      - name: 📦 Setup export templates
-        run: |
-          mkdir -p ~/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.stable/
-
-      - name: 🏗️ Build ${{ matrix.platform }}
-        run: |
-          mkdir -p builds/${{ matrix.template }}
-          if [ "${{ matrix.platform }}" == "Web" ]; then
-            godot --headless --export-release "Web" builds/${{ matrix.template }}/index.html
-            cd builds/${{ matrix.template }}
-            zip -r ../../${{ matrix.asset_name }} .
-            cd ../..
-          else
-            godot --headless --export-release "${{ matrix.platform }}" builds/${{ matrix.template }}/${{ env.EXPORT_NAME }}${{ matrix.extension }}
-            mv builds/${{ matrix.template }}/${{ env.EXPORT_NAME }}${{ matrix.extension }} ${{ matrix.asset_name }}
-          fi
-
-      - name: 📤 Upload release asset
-        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }}
-          asset_path: ${{ matrix.asset_name }}
-          asset_name: ${{ matrix.asset_name }}
-          asset_content_type: application/octet-stream
