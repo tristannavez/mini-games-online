@@ -1,0 +1,177 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd7ctvwshv6xp"]
+
+[ext_resource type="Script" uid="uid://banbuomauwem4" path="res://minigames/tictactoe/TicTacToe.gd" id="1_j8vh4"]
+[ext_resource type="Theme" uid="uid://cb6hs51swyjmy" path="res://assets/modern_theme.tres" id="2_modern_theme"]
+
+[node name="TicTacToe" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_modern_theme")
+script = ExtResource("1_j8vh4")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.12, 0.2, 1)
+
+[node name="ResponsiveContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainLayout" type="VBoxContainer" parent="ResponsiveContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HeaderSpacer" type="Control" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GamePanel" type="Panel" parent="ResponsiveContainer/MainLayout/CenterContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "⭕ TIC TAC TOE"
+horizontal_alignment = 1
+
+[node name="GameInfo" type="Label" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/TitleContainer"]
+modulate = Color(0.8, 0.9, 1, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Player X's Turn"
+horizontal_alignment = 1
+
+[node name="GameBoardContainer" type="CenterContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GameBoard" type="GridContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer"]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 3
+
+[node name="Cell0" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="Cell1" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="Cell2" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="Cell3" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="Cell4" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="Cell5" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="Cell6" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="Cell7" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="Cell8" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = " "
+
+[node name="ActionsContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RestartBtn" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/ActionsContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "🔄 New Game"
+
+[node name="BackToLobbyBtn" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/ActionsContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "🏠 Back to Lobby"
+
+[node name="FooterSpacer" type="Control" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell0" to="." method="_on_cell_pressed" binds= [0]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell1" to="." method="_on_cell_pressed" binds= [1]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell2" to="." method="_on_cell_pressed" binds= [2]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell3" to="." method="_on_cell_pressed" binds= [3]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell4" to="." method="_on_cell_pressed" binds= [4]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell5" to="." method="_on_cell_pressed" binds= [5]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell6" to="." method="_on_cell_pressed" binds= [6]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell7" to="." method="_on_cell_pressed" binds= [7]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/GameBoardContainer/GameBoard/Cell8" to="." method="_on_cell_pressed" binds= [8]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/ActionsContainer/RestartBtn" to="." method="_on_restart_btn_pressed"]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/GamePanel/MarginContainer/VBoxContainer/ActionsContainer/BackToLobbyBtn" to="." method="_on_back_to_lobby_btn_pressed"]

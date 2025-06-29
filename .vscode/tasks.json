@@ -1,0 +1,149 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Launch Godot Editor",
+            "type": "shell",
+            "command": "D:\\Softwares\\Godot_v4.4.1-stable_win64.exe",
+            "args": ["--path", ".", "--editor"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Project",
+            "type": "shell",
+            "command": "D:\\Softwares\\Godot_v4.4.1-stable_win64.exe",
+            "args": ["--path", ".", "--rendering-driver", "opengl3"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Production (Windows)",
+            "type": "shell",
+            "command": ".\\tools\\build_production.bat",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Production (Linux/macOS)",
+            "type": "shell",
+            "command": ".\\tools\\build_production.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+
+
+
+        {
+            "label": "Test: Dual Mobile Devices (Android)",
+            "type": "shell",
+            "command": ".\\tools\\mobile_device_simulator.ps1",
+            "args": ["-Device", "Android", "-DualDevice"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: Mobile Simulator (iPhone)",
+            "type": "shell",
+            "command": ".\\tools\\mobile_device_simulator.ps1",
+            "args": ["-Device", "iPhone", "-DualDevice"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: Mobile Simulator (iPad)",
+            "type": "shell",
+            "command": ".\\tools\\mobile_device_simulator.ps1",
+            "args": ["-Device", "iPad", "-DualDevice"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: Advanced Mobile Simulator",
+            "type": "shell",
+            "command": ".\\tools\\mobile_device_simulator.ps1",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Test: Multiple Instances",
+            "type": "shell",
+            "command": ".\\tools\\launch_multiplayer_test.ps1",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Server: Start Matchmaking",
+            "type": "shell",
+            "command": "node",
+            "args": ["server/matchmaking-server.js"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            },
+            "problemMatcher": [],
+            "isBackground": true
+        }
+    ]
+}

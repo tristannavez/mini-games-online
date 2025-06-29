@@ -1,0 +1,182 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw1a3rpfcfxs2"]
+
+[ext_resource type="Script" uid="uid://be4yo68qscwpc" path="res://scenes/MainMenu.gd" id="1_0y4km"]
+[ext_resource type="Theme" uid="uid://cb6hs51swyjmy" path="res://assets/modern_theme.tres" id="2_modern_theme"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_modern_theme")
+script = ExtResource("1_0y4km")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.12, 0.2, 1)
+
+[node name="ResponsiveContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainLayout" type="VBoxContainer" parent="ResponsiveContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HeaderSpacer" type="Control" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ContentPanel" type="Panel" parent="ResponsiveContainer/MainLayout/CenterContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ContentMargin" type="MarginContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/TitleContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "MINI GAMES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/TitleContainer"]
+modulate = Color(0.7, 0.8, 1, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "ONLINE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerNameContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NameLabel" type="Label" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/PlayerNameContainer"]
+layout_mode = 2
+text = "Player Name"
+horizontal_alignment = 1
+
+[node name="NameInput" type="LineEdit" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/PlayerNameContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "Enter your name"
+alignment = 1
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CreateServerBtn" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "🎮 Host Game"
+
+[node name="JoinServerBtn" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "🔗 Join Game"
+
+[node name="SecondaryButtonsContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LanguageBtn" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/SecondaryButtonsContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "🌐 Français"
+
+[node name="QuickMatchBtn" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/SecondaryButtonsContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "⚡ Quick Match"
+
+[node name="SettingsBtn" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/SecondaryButtonsContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "⚙️ Settings"
+
+[node name="QuitBtn" type="Button" parent="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/SecondaryButtonsContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "❌ Quit"
+
+[node name="FooterSpacer" type="Control" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+
+[node name="JoinServerDialog" type="AcceptDialog" parent="."]
+title = "Join Game"
+initial_position = 2
+size = Vector2i(400, 200)
+theme = ExtResource("2_modern_theme")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="JoinServerDialog"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -65.0
+theme_override_constants/separation = 16
+
+[node name="CodeContainer" type="VBoxContainer" parent="JoinServerDialog/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="JoinServerDialog/VBoxContainer/CodeContainer"]
+layout_mode = 2
+text = "Game Code"
+horizontal_alignment = 1
+
+[node name="CodeInput" type="LineEdit" parent="JoinServerDialog/VBoxContainer/CodeContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+placeholder_text = "Enter 4-digit code"
+alignment = 1
+max_length = 4
+
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/ButtonsContainer/CreateServerBtn" to="." method="_on_create_server_btn_pressed"]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/ButtonsContainer/JoinServerBtn" to="." method="_on_join_server_btn_pressed"]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/SecondaryButtonsContainer/LanguageBtn" to="." method="_on_language_btn_pressed"]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/SecondaryButtonsContainer/QuickMatchBtn" to="." method="_on_quick_match_btn_pressed"]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/SecondaryButtonsContainer/SettingsBtn" to="." method="_on_settings_btn_pressed"]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/CenterContainer/ContentPanel/ContentMargin/VBoxContainer/SecondaryButtonsContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="confirmed" from="JoinServerDialog" to="." method="_on_join_server_dialog_confirmed"]

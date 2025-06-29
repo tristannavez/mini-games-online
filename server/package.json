@@ -1,0 +1,25 @@
+{
+  "name": "mini-games-matchmaking-server",
+  "version": "1.0.0",
+  "description": "Serveur de matchmaking pour Mini Games Online",
+  "main": "matchmaking-server.js",
+  "scripts": {
+    "start": "node matchmaking-server.js",
+    "dev": "nodemon matchmaking-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "keywords": [
+    "godot",
+    "matchmaking",
+    "multiplayer",
+    "games"
+  ],
+  "author": "Votre nom",
+  "license": "MIT"
+}

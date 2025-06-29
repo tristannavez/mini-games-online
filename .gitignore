@@ -1,0 +1,51 @@
+# Godot 4+ specific ignores
+.godot/
+.import/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/settings.json
+
+# Node.js (for server directory)
+server/node_modules/
+server/package-lock.json
+server/npm-debug.log*
+server/yarn-debug.log*
+server/yarn-error.log*
+
+# Build outputs
+builds/
+exports/
+dist/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# IDE files
+*.swp
+*.swo
+.idea/
+
+# Platform specific builds
+*.exe
+*.app
+*.dmg
+*.deb
+*.rpm
+*.apk
+*.aab
+*.ipa
+
+# Certificates and keys
+*.p12
+*.pem
+*.key
+server/.env

@@ -1,0 +1,146 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8q4mv5p42d2v"]
+
+[ext_resource type="Script" uid="uid://ceaxisy1jhfqg" path="res://scenes/Lobby.gd" id="1_h3wlm"]
+[ext_resource type="Theme" uid="uid://cb6hs51swyjmy" path="res://assets/modern_theme.tres" id="2_modern_theme"]
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_modern_theme")
+script = ExtResource("1_h3wlm")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.12, 0.2, 1)
+
+[node name="ResponsiveContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="MainLayout" type="VBoxContainer" parent="ResponsiveContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderContainer" type="CenterContainer" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="ResponsiveContainer/MainLayout/HeaderContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "🎮 Game Lobby"
+horizontal_alignment = 1
+
+[node name="ContentLayout" type="HSplitContainer" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftPanel" type="Panel" parent="ResponsiveContainer/MainLayout/ContentLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LeftMargin" type="MarginContainer" parent="ResponsiveContainer/MainLayout/ContentLayout/LeftPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="LeftContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/ContentLayout/LeftPanel/LeftMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PlayersLabel" type="Label" parent="ResponsiveContainer/MainLayout/ContentLayout/LeftPanel/LeftMargin/LeftContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "👥 Players"
+horizontal_alignment = 1
+
+[node name="PlayersList" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/ContentLayout/LeftPanel/LeftMargin/LeftContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ReadyBtn" type="Button" parent="ResponsiveContainer/MainLayout/ContentLayout/LeftPanel/LeftMargin/LeftContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+toggle_mode = true
+text = "✅ Ready"
+
+[node name="RightPanel" type="Panel" parent="ResponsiveContainer/MainLayout/ContentLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightMargin" type="MarginContainer" parent="ResponsiveContainer/MainLayout/ContentLayout/RightPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="RightContainer" type="VBoxContainer" parent="ResponsiveContainer/MainLayout/ContentLayout/RightPanel/RightMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GamesLabel" type="Label" parent="ResponsiveContainer/MainLayout/ContentLayout/RightPanel/RightMargin/RightContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "🎯 Mini-Games"
+horizontal_alignment = 1
+
+[node name="GamesGrid" type="GridContainer" parent="ResponsiveContainer/MainLayout/ContentLayout/RightPanel/RightMargin/RightContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="TicTacToeBtn" type="Button" parent="ResponsiveContainer/MainLayout/ContentLayout/RightPanel/RightMargin/RightContainer/GamesGrid"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+text = "⭕ Tic-Tac-Toe"
+
+[node name="StartGameBtn" type="Button" parent="ResponsiveContainer/MainLayout/ContentLayout/RightPanel/RightMargin/RightContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+disabled = true
+text = "🚀 Start Game"
+
+[node name="FooterContainer" type="CenterContainer" parent="ResponsiveContainer/MainLayout"]
+layout_mode = 2
+
+[node name="LeaveBtn" type="Button" parent="ResponsiveContainer/MainLayout/FooterContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "🚪 Leave Lobby"
+
+[connection signal="toggled" from="ResponsiveContainer/MainLayout/ContentLayout/LeftPanel/LeftMargin/LeftContainer/ReadyBtn" to="." method="_on_ready_btn_toggled"]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/ContentLayout/RightPanel/RightMargin/RightContainer/GamesGrid/TicTacToeBtn" to="." method="_on_game_selected" binds= [0]]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/ContentLayout/RightPanel/RightMargin/RightContainer/StartGameBtn" to="." method="_on_start_game_btn_pressed"]
+[connection signal="pressed" from="ResponsiveContainer/MainLayout/FooterContainer/LeaveBtn" to="." method="_on_leave_btn_pressed"]
