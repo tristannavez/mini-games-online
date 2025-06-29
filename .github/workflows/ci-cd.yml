@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🎯 Setup Godot
-        uses: chickensoft-games/setup-godot@v1
+        uses: chickensoft-games/setup-godot@v2
         with:
           version: ${{ env.GODOT_VERSION }}
           use-dotnet: false
@@ -124,7 +124,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🎯 Setup Godot with export templates
-        uses: chickensoft-games/setup-godot@v1
+        uses: chickensoft-games/setup-godot@v2
         with:
           version: ${{ env.GODOT_VERSION }}
           use-dotnet: false
@@ -207,7 +207,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🎯 Setup Godot
-        uses: chickensoft-games/setup-godot@v1
+        uses: chickensoft-games/setup-godot@v2
         with:
           version: ${{ env.GODOT_VERSION }}
           use-dotnet: false

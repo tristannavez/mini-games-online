@@ -40,7 +40,7 @@ jobs:
         shell: bash
 
       - name: 🎯 Setup Godot
-        uses: chickensoft-games/setup-godot@v1
+        uses: chickensoft-games/setup-godot@v2
         with:
           version: ${{ env.GODOT_VERSION }}
           use-dotnet: false
