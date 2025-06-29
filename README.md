@@ -3,7 +3,7 @@
 **A modern cross-platform multiplayer mini-games collection built with Godot 4.4.1**
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20Android-green.svg)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-green.svg)
 ![Language](https://img.shields.io/badge/language-English%20%7C%20French-yellow.svg)
 ![Multiplayer](https://img.shields.io/badge/multiplayer-Cross--platform-red.svg)
 
@@ -50,10 +50,12 @@ Mini Games Online is a beautiful, modern multiplayer gaming platform that brings
 ### System Requirements
 
 **Minimum:**
-- OS: Windows 10 / Ubuntu 18.04 / Android 6.0
+- OS: Windows 10 (64-bit) / Ubuntu 18.04+ (64-bit)
 - RAM: 2GB
-- Graphics: OpenGL 3.3 support
+- Graphics: OpenGL 3.3 support  
 - Network: Internet connection for multiplayer
+
+> **Note:** Web platform is not currently supported due to multiplayer networking limitations (ENet UDP). Desktop versions provide the best multiplayer experience.
 
 ## 🏗️ Project Structure
 

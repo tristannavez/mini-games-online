@@ -1,0 +1,124 @@
+name: 🚀 Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+env:
+  GODOT_VERSION: 4.4.1
+  EXPORT_NAME: MiniGamesOnline
+
+jobs:
+  create-release:
+    name: 🎯 Create Release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      version: ${{ steps.get_version.outputs.version }}
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🏷️ Get version from tag
+        id: get_version
+        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: 📝 Generate release notes
+        id: release_notes
+        run: |
+          cat > release_notes.md << 'EOF'
+          ## 🎮 Mini Games Online ${{ steps.get_version.outputs.version }}
+          
+          ### ✨ What's New
+          - Check the commit history for detailed changes
+          - Cross-platform multiplayer mini-games
+          - Currently featuring Tic-Tac-Toe
+          
+          ### 📱 Supported Platforms
+          - 🖥️ Windows 10/11 (64-bit)
+          - 🐧 Linux (Ubuntu 18.04+ / 64-bit)
+          
+          ### ⚠️ Note
+          Web version is not currently supported due to multiplayer networking limitations.
+          Use the desktop versions for the best multiplayer experience.
+          
+          ### 🎯 How to Play
+          1. Download the appropriate version for your platform
+          2. Run the game
+          3. Create or join a lobby
+          4. Enjoy multiplayer Tic-Tac-Toe!
+          
+          ### 🛠️ Technical Details
+          - Built with Godot ${{ env.GODOT_VERSION }}
+          - Supports up to 8 players per lobby
+          - Real-time networking
+          - Multi-language support (English/French)
+          EOF
+
+      - name: 🚀 Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_version.outputs.version }}
+          release_name: 🎮 Mini Games Online ${{ steps.get_version.outputs.version }}
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
+
+  build-and-upload:
+    name: 🏗️ Build & Upload
+    needs: create-release
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - platform: Windows
+            runner: windows-latest
+            template: windows
+            extension: .exe
+            asset_name: MiniGamesOnline_Windows.exe
+          - platform: Linux
+            runner: ubuntu-latest  
+            template: linux
+            extension: .x86_64
+            asset_name: MiniGamesOnline_Linux.x86_64
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🎯 Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: false
+
+      - name: 📦 Setup export templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.stable/
+
+      - name: 🏗️ Build ${{ matrix.platform }}
+        run: |
+          mkdir -p builds/${{ matrix.template }}
+          if [ "${{ matrix.platform }}" == "Web" ]; then
+            godot --headless --export-release "Web" builds/${{ matrix.template }}/index.html
+            cd builds/${{ matrix.template }}
+            zip -r ../../${{ matrix.asset_name }} .
+            cd ../..
+          else
+            godot --headless --export-release "${{ matrix.platform }}" builds/${{ matrix.template }}/${{ env.EXPORT_NAME }}${{ matrix.extension }}
+            mv builds/${{ matrix.template }}/${{ env.EXPORT_NAME }}${{ matrix.extension }} ${{ matrix.asset_name }}
+          fi
+
+      - name: 📤 Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          asset_path: ${{ matrix.asset_name }}
+          asset_name: ${{ matrix.asset_name }}
+          asset_content_type: application/octet-stream
