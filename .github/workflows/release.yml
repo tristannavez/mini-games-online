@@ -108,7 +108,7 @@ jobs:
         shell: bash
 
       - name: � Create release with assets
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: 🎮 Mini Games Online ${{ steps.get_version.outputs.version }}
           generate_release_notes: true
